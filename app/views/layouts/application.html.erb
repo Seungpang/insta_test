@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SnsSample</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  
+  <body>
+    <nav>
+      <div class="nav-wrapper blue lighten-2">
+        <a href="/" class="brand-logo">Likelion</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <% if user_signed_in? %>
+            <li><a href="posts">게시물</a></li>
+          <% else %>
+            <li><a href="posts/guest_view">손님</a></li>
+            <li><a href="posts">게시물</a></li>
+          <% end %>
+          <% if user_signed_in? %>
+            <li><%= current_user.nickname %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+          <% else %>
+            <li><a href="/users/sign_in">Sign in</a></li>
+            <li><a href="/users/sign_up">Sign up</a></li>
+          <% end %>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="posts/guest_view">손님</a></li>
+          <li><a href="posts">게시물</a></li>
+          <% if user_signed_in? %>
+            <li><%= current_user.nickname %></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+          <% else %>
+            <li><a href="/users/sign_in">Sign in</a></li>
+            <li><a href="/users/sign_up">Sign up</a></li>
+          <%end%>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
